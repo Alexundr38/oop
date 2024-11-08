@@ -1,0 +1,10 @@
+^D:\LB_OOP\LB1\SEA_BATLE\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/lb_oop/lb1/sea_batle -BD:/lb_oop/lb1/sea_batle/build --check-stamp-file D:/lb_oop/lb1/sea_batle/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

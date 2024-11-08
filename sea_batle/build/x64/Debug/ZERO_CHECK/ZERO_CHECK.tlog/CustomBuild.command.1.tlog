@@ -1,0 +1,10 @@
+^D:\LB_OOP\LB1\SEA_BATLE\BUILD\CMAKEFILES\7E160B0990686C022A37D0D1C44285DA\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SD:/lb_oop/lb1/sea_batle -BD:/lb_oop/lb1/sea_batle/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file D:/lb_oop/lb1/sea_batle/build/WarshipGame.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\lb_oop\lb1\sea_batle\build\CMakeFiles\7e160b0990686c022a37d0d1c44285da\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F1D2A222-14DE-3614-8F12-79D97D112E92}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
