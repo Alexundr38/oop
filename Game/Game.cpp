@@ -55,6 +55,7 @@ Player* Game::getPlayer(bool is_player) {
 	}
 }
 
+
 void Game::changeState(GameState* new_state) {
 	new_state->doState();
 }
@@ -70,6 +71,7 @@ json Game::to_json() const {
 void Game::from_json(const json& j) {
 	player->from_json(j.at("player"));
 	bot->from_json(j.at("bot"));
+
 	stringToState(j.at("next_state"));
 }
 

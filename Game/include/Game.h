@@ -22,6 +22,7 @@ class Game {
 	Player* player;
 	Player* bot;
 	InputManager* input_manager;
+
 	Output out{ std::cout };
 	OutputManager<Output>* output_manager;
 	GameState* next_state;

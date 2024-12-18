@@ -1,8 +1,5 @@
 #include "Player.h"
 
-//Player::Player(InputManager* input_manager, OutputManager* output_manager) :
-//	input_manager(input_manager), output_manager(output_manager) {};
-
 Player::Player(bool is_player, InputManager* input_manager, OutputManager<Output>* output_manager) :
 	is_player(is_player), input_manager(input_manager), output_manager(output_manager) {};
 
@@ -104,10 +101,10 @@ void Player::setDouble() {
 bool Player::playerMove(bool is_use) {
 	output_manager->printMessage("------------------------\n");
 	if (is_player == true) {
-		output_manager->printMessage("Âàø õîä!\n");
+		output_manager->printMessage("Ã‚Ã Ã¸ ÃµÃ®Ã¤!\n");
 	}
 	else {
-		output_manager->printMessage("Õîä ïðîòèâíèêà!\n");
+		output_manager->printMessage("Ã•Ã®Ã¤ Ã¯Ã°Ã®Ã²Ã¨Ã¢Ã­Ã¨ÃªÃ !\n");
 	}
 	if (is_use) {
 		try {
@@ -117,7 +114,7 @@ bool Player::playerMove(bool is_use) {
 			}
 			else {
 				std::ostringstream oss;
-				oss << "Àêòèâèðóåòñÿ ñïîñîáíîñòü " << ability_manager->infoAbility() << '\n';
+				oss << "Ã€ÃªÃ²Ã¨Ã¢Ã¨Ã°Ã³Ã¥Ã²Ã±Ã¿ Ã±Ã¯Ã®Ã±Ã®Ã¡Ã­Ã®Ã±Ã²Ã¼ " << ability_manager->infoAbility() << '\n';
 				output_manager->printMessage(oss.str());
 				ability_manager->useAbility();
 				bool check_win = ship_manager->checkWin();
@@ -138,7 +135,7 @@ bool Player::playerMove(bool is_use) {
 		int y, x;
 		sizes = field->getSize();
 		if (is_player == true) {
-			output_manager->printMessage(" - Óêàæèòå òî÷êó óäàðà â ôîðìàòå [x y]\n");
+			output_manager->printMessage(" - Ã“ÃªÃ Ã¦Ã¨Ã²Ã¥ Ã²Ã®Ã·ÃªÃ³ Ã³Ã¤Ã Ã°Ã  Ã¢ Ã´Ã®Ã°Ã¬Ã Ã²Ã¥ [x y]\n");
 			std::pair <int, int> coordinates = input_manager->inputXY(sizes.first, sizes.second);
 			x = --coordinates.first;
 			y = --coordinates.second;
@@ -169,7 +166,7 @@ bool Player::playerMove(bool is_use) {
 			}
 		}
 		else {
-			output_manager->printMessage("Ïðîìàõ!\n");
+			output_manager->printMessage("ÃÃ°Ã®Ã¬Ã Ãµ!\n");
 		}
 		is_double = false;
 	}
@@ -180,7 +177,7 @@ bool Player::hit(int x, int y, int index, bool is_hide) {
 	int index_deck = field->getDeckIndex(x, y);
 	bool degree = ship_manager->checkDegree(index, index_deck);
 	if (degree == true) {
-		if (is_hide == false) { output_manager->printMessage("Ïîïàäàíèå â óíè÷òîæåííûé ñåãìåíò êîðàáëÿ!\n"); }
+		if (is_hide == false) { output_manager->printMessage("ÃÃ®Ã¯Ã Ã¤Ã Ã­Ã¨Ã¥ Ã¢ Ã³Ã­Ã¨Ã·Ã²Ã®Ã¦Ã¥Ã­Ã­Ã»Ã© Ã±Ã¥Ã£Ã¬Ã¥Ã­Ã² ÃªÃ®Ã°Ã Ã¡Ã«Ã¿!\n"); }
 		return false;
 	}
 	else {
@@ -189,18 +186,18 @@ bool Player::hit(int x, int y, int index, bool is_hide) {
 		bool check = ship_manager->checkDestroyed(index);
 		bool degree = ship_manager->checkDegree(index, index_deck);
 
-		if (is_hide == false) { output_manager->printMessage("Ïîïàäàíèå!\n"); }
+		if (is_hide == false) { output_manager->printMessage("ÃÃ®Ã¯Ã Ã¤Ã Ã­Ã¨Ã¥!\n"); }
 		if (degree == false) {
-			if (is_hide == false) { output_manager->printMessage("Ñåêòîð ïîâðåæäåí!\n"); }
+			if (is_hide == false) { output_manager->printMessage("Ã‘Ã¥ÃªÃ²Ã®Ã° Ã¯Ã®Ã¢Ã°Ã¥Ã¦Ã¤Ã¥Ã­!\n"); }
 		}
 		else {
-			if (is_hide == false) { output_manager->printMessage("Ñåêòîð óíè÷òîæåí!\n"); };
+			if (is_hide == false) { output_manager->printMessage("Ã‘Ã¥ÃªÃ²Ã®Ã° Ã³Ã­Ã¨Ã·Ã²Ã®Ã¦Ã¥Ã­!\n"); };
 			field->killDeck(x, y);
 		}
 
 		if (check == true) {
 			if (is_player == true) { ability_manager->createAbility(); }
-			if (is_hide == false) { output_manager->printMessage("Êîðàáëü óíè÷òîæåí!\n"); }
+			if (is_hide == false) { output_manager->printMessage("ÃŠÃ®Ã°Ã Ã¡Ã«Ã¼ Ã³Ã­Ã¨Ã·Ã²Ã®Ã¦Ã¥Ã­!\n"); }
 		}
 	}
 	return true;

@@ -33,12 +33,12 @@ void CreatePlayer::setManager(bool is_hide) {
 void CreatePlayer::infoManager(int number, std::vector <int> lenghts) {
 	OutputManager<Output>* output_manager = player->getOutputManager();
 	std::ostringstream oss;
-	oss << "В игре будет " << number << " кораблей.\n";
+	oss << "Г‚ ГЁГЈГ°ГҐ ГЎГіГ¤ГҐГІ " << number << " ГЄГ®Г°Г ГЎГ«ГҐГ©.\n";
 	output_manager->printMessage(oss.str());
 	for (int i = 0; i < 4; i++) {
 		oss.str("");
 		oss.clear();
-		oss << lenghts[i] << " " << 4 - i << "-палубных кораблей;\n";
+		oss << lenghts[i] << " " << 4 - i << "-ГЇГ Г«ГіГЎГ­Г»Гµ ГЄГ®Г°Г ГЎГ«ГҐГ©;\n";
 		output_manager->printMessage(oss.str());
 	}
 }
@@ -94,7 +94,7 @@ std::vector <int> CreatePlayer::countShip(int width, int height) {
 }
 
 void CreatePlayer::inputSizes() {
-	std::cout << " - Введите размер поля в формате: [ширина высота]\n";
+	std::cout << " - Г‚ГўГҐГ¤ГЁГІГҐ Г°Г Г§Г¬ГҐГ° ГЇГ®Г«Гї Гў ГґГ®Г°Г¬Г ГІГҐ: [ГёГЁГ°ГЁГ­Г  ГўГ»Г±Г®ГІГ ]\n";
 	srand(time(0));
 	std::pair<int, int> sizes = input_manager->inputSize();
 	width = sizes.first;
@@ -104,7 +104,7 @@ void CreatePlayer::inputSizes() {
 }
 
 void CreatePlayer::inputAnswer(bool new_iteration) {
-	output_manager->printMessage(" - Если хотите расставить корабли вручную, введите [1]\n - Если хотите, чтобы корабли были расставлены автоматически, введите [0]\n");
+	output_manager->printMessage(" - Г…Г±Г«ГЁ ГµГ®ГІГЁГІГҐ Г°Г Г±Г±ГІГ ГўГЁГІГј ГЄГ®Г°Г ГЎГ«ГЁ ГўГ°ГіГ·Г­ГіГѕ, ГўГўГҐГ¤ГЁГІГҐ [1]\n - Г…Г±Г«ГЁ ГµГ®ГІГЁГІГҐ, Г·ГІГ®ГЎГ» ГЄГ®Г°Г ГЎГ«ГЁ ГЎГ»Г«ГЁ Г°Г Г±Г±ГІГ ГўГ«ГҐГ­Г» Г ГўГІГ®Г¬Г ГІГЁГ·ГҐГ±ГЄГЁ, ГўГўГҐГ¤ГЁГІГҐ [0]\n");
 	int value = input_manager->inputValue();
 
 	if (value == 1) {
@@ -123,9 +123,9 @@ void CreatePlayer::inputCoordinates() {
 	std::pair <int, int> sizes = player_field->getSize();
 	while (i < lenghts.size()) {
 		std::ostringstream oss;
-		oss << " - Введите координаты корабля размера " << lenghts[i] << " и его ориентацию на поле в формате: [y x orientation]\n";
+		oss << " - Г‚ГўГҐГ¤ГЁГІГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЄГ®Г°Г ГЎГ«Гї Г°Г Г§Г¬ГҐГ°Г  " << lenghts[i] << " ГЁ ГҐГЈГ® Г®Г°ГЁГҐГ­ГІГ Г¶ГЁГѕ Г­Г  ГЇГ®Г«ГҐ Гў ГґГ®Г°Г¬Г ГІГҐ: [y x orientation]\n";
 		output_manager->printMessage(oss.str());
-		output_manager->printMessage(" - y и x - координаты левого верхнего угла коробля, orientation - его ориентация на поле, при этом 1 - горизонтально, 0 - вертикально.\n");
+		output_manager->printMessage(" - y ГЁ x - ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» Г«ГҐГўГ®ГЈГ® ГўГҐГ°ГµГ­ГҐГЈГ® ГіГЈГ«Г  ГЄГ®Г°Г®ГЎГ«Гї, orientation - ГҐГЈГ® Г®Г°ГЁГҐГ­ГІГ Г¶ГЁГї Г­Г  ГЇГ®Г«ГҐ, ГЇГ°ГЁ ГЅГІГ®Г¬ 1 - ГЈГ®Г°ГЁГ§Г®Г­ГІГ Г«ГјГ­Г®, 0 - ГўГҐГ°ГІГЁГЄГ Г«ГјГ­Г®.\n");
 		int x, y, orient;
 		std::vector <int> input_values = input_manager->inputXYOrient(sizes.first, sizes.second);
 		x = input_values[0];
@@ -177,7 +177,7 @@ void CreatePlayer::randomCoordinates() {
 			createPlayer(true);
 			i = 0;
 			begin = std::chrono::steady_clock::now();
-			output_manager->printMessage("Расстановка кораблей..\n");
+			output_manager->printMessage("ГђГ Г±Г±ГІГ Г­Г®ГўГЄГ  ГЄГ®Г°Г ГЎГ«ГҐГ©..\n");
 		}
 		int orient;
 		orient = rand() % 2;

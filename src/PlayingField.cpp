@@ -56,11 +56,11 @@ PlayingField::PlayingField(int width, int height) {
 
 PlayingField::PlayingField() = default;
 
-PlayingField::PlayingField(const PlayingField& other) : //копирование
+PlayingField::PlayingField(const PlayingField& other) : //ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГҐ
 	field_value(other.field_value), field_view(other.field_view),
 	height(other.height), width(other.width) {}
 
-PlayingField::PlayingField(PlayingField&& other) noexcept : //перемещение	
+PlayingField::PlayingField(PlayingField&& other) noexcept : //ГЇГҐГ°ГҐГ¬ГҐГ№ГҐГ­ГЁГҐ	
 	field_value(std::move(other.field_value)), field_view(std::move(other.field_view)),
 	height(other.height), width(other.width) {
 	other.height = 0;

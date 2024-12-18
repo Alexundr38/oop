@@ -1,56 +1,56 @@
 #include "Exception.h"
 
 std::string InputSizeException::what() {
-	std::string msg = "Ошибка: введены некорректные данные. Пожалуйста, попробуйте снова.";
+	std::string msg = "ГЋГёГЁГЎГЄГ : ГўГўГҐГ¤ГҐГ­Г» Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»ГҐ Г¤Г Г­Г­Г»ГҐ. ГЏГ®Г¦Г Г«ГіГ©Г±ГІГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±Г­Г®ГўГ .";
 	return msg;
 }
 
 std::string InputValueException::what() {
-	std::string msg = "Ошибка: введено некорректное значение. Пожалуйста, попробуйте снова.";
+	std::string msg = "ГЋГёГЁГЎГЄГ : ГўГўГҐГ¤ГҐГ­Г® Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г®ГҐ Г§Г­Г Г·ГҐГ­ГЁГҐ. ГЏГ®Г¦Г Г«ГіГ©Г±ГІГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±Г­Г®ГўГ .";
 	return msg;
 }
 
 std::string InputCoordinatesException::what() {
-	std::string msg = "Ошибка: введены некорректные координаты. Пожалуйста, попробуйте снова.";
+	std::string msg = "ГЋГёГЁГЎГЄГ : ГўГўГҐГ¤ГҐГ­Г» Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ». ГЏГ®Г¦Г Г«ГіГ©Г±ГІГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±Г­Г®ГўГ .";
 	return msg;
 }
 
 std::string InputCoordAndOrientException::what() {
-	std::string msg = "Ошибка: введены некорректные координаты и ориентация. Пожалуйста, попробуйте снова.";
+	std::string msg = "ГЋГёГЁГЎГЄГ : ГўГўГҐГ¤ГҐГ­Г» Г­ГҐГЄГ®Г°Г°ГҐГЄГІГ­Г»ГҐ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ» ГЁ Г®Г°ГЁГҐГ­ГІГ Г¶ГЁГї. ГЏГ®Г¦Г Г«ГіГ©Г±ГІГ , ГЇГ®ГЇГ°Г®ГЎГіГ©ГІГҐ Г±Г­Г®ГўГ .";
 	return msg;
 }
 
 std::string SetShipException::what() {
-	std::string msg = "Корабль не может быть расположен в указанном месте.";
+	std::string msg = "ГЉГ®Г°Г ГЎГ«Гј Г­ГҐ Г¬Г®Г¦ГҐГІ ГЎГ»ГІГј Г°Г Г±ГЇГ®Г«Г®Г¦ГҐГ­ Гў ГіГЄГ Г§Г Г­Г­Г®Г¬ Г¬ГҐГ±ГІГҐ.";
 	return msg;
 }
 
 std::string UseAbilityException::what() {
-	std::string msg = "В данный моменту вас нет способностей, которые можно применить.";
+	std::string msg = "Г‚ Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІГі ГўГ Г± Г­ГҐГІ Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГҐГ©, ГЄГ®ГІГ®Г°Г»ГҐ Г¬Г®Г¦Г­Г® ГЇГ°ГЁГ¬ГҐГ­ГЁГІГј.";
 	return msg;
 }
 
 std::string OpenFileException::what() {
-	std::string msg = "Не найдено сохранений";
+	std::string msg = "ГЌГҐ Г­Г Г©Г¤ГҐГ­Г® Г±Г®ГµГ°Г Г­ГҐГ­ГЁГ©";
 	return msg;
 }
 
 std::string UnknownCommandException::what() {
-	std::string msg = "Неизвестная команда";
+	std::string msg = "ГЌГҐГЁГ§ГўГҐГ±ГІГ­Г Гї ГЄГ®Г¬Г Г­Г¤Г ";
 	return msg;
 }
 
 std::string AttackCommandException::what() {
-	std::string msg = "В данный момент невозможно атаковать";
+	std::string msg = "Г‚ Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІ Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® Г ГІГ ГЄГ®ГўГ ГІГј";
 	return msg;
 }
 
 std::string UseAbilityCommandException::what() {
-	std::string msg = "В данный невозможно использовать способность";
+	std::string msg = "Г‚ Г¤Г Г­Г­Г»Г© Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® ГЁГ±ГЇГ®Г«ГјГ§Г®ГўГ ГІГј Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГј";
 	return msg;
 }
 
 std::string SaveCommandException::what() {
-	std::string msg = "В данный момент невозможно сохранить игру";
+	std::string msg = "Г‚ Г¤Г Г­Г­Г»Г© Г¬Г®Г¬ГҐГ­ГІ Г­ГҐГўГ®Г§Г¬Г®Г¦Г­Г® Г±Г®ГµГ°Г Г­ГЁГІГј ГЁГЈГ°Гі";
 	return msg;
 }

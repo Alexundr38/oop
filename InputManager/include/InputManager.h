@@ -1,3 +1,4 @@
+
 #ifndef INPUTMANAGER_H
 #define INPUTMANAGER_H
 
@@ -38,6 +39,7 @@ private:
 	};
 
 	Commands stringToCommand(std::string str);
+  
 public:
 	InputManager(std::istream& is) : is(is) {};
 

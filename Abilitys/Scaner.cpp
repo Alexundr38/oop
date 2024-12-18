@@ -4,7 +4,7 @@
 Scaner::Scaner(Player* player) : player(player) {};
 
 std::string Scaner::printInfo() {
-	return "Cêàíåð";
+	return "CÃªÃ Ã­Ã¥Ã°";
 }
 
 bool Scaner::useAbility() {
@@ -12,7 +12,7 @@ bool Scaner::useAbility() {
 	InputManager* input_manager = player->getInputManager();
 	OutputManager<Output>* output_manager = player->getOutputManager();
 	std::pair<int, int> sizes = field->getSize();
-	output_manager->printMessage("Ââåäèòå êîîðäèíàòû òî÷êè ëåâîãî âåðõíåãî óãëà îáëàñòè 2x2 â ôîðìàòå [y x]\n");
+	output_manager->printMessage("Ã‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥ ÃªÃ®Ã®Ã°Ã¤Ã¨Ã­Ã Ã²Ã» Ã²Ã®Ã·ÃªÃ¨ Ã«Ã¥Ã¢Ã®Ã£Ã® Ã¢Ã¥Ã°ÃµÃ­Ã¥Ã£Ã® Ã³Ã£Ã«Ã  Ã®Ã¡Ã«Ã Ã±Ã²Ã¨ 2x2 Ã¢ Ã´Ã®Ã°Ã¬Ã Ã²Ã¥ [y x]\n");
 	std::pair<int, int> coordinates = input_manager->inputXY(sizes.first, sizes.second);
 	int x = coordinates.first - 1, y = coordinates.second - 1;
 	bool is_deck = false;
@@ -25,10 +25,10 @@ bool Scaner::useAbility() {
 		}
 	}
 	if (is_deck == true) {
-		output_manager->printMessage("Â äàííîé îáëàñòè åñòü ñåãìåíò êîðàáëÿ\n");
+		output_manager->printMessage("Ã‚ Ã¤Ã Ã­Ã­Ã®Ã© Ã®Ã¡Ã«Ã Ã±Ã²Ã¨ Ã¥Ã±Ã²Ã¼ Ã±Ã¥Ã£Ã¬Ã¥Ã­Ã² ÃªÃ®Ã°Ã Ã¡Ã«Ã¿\n");
 	}
 	else {
-		output_manager->printMessage("Â äàííîé îáëàñòè íåò êîðàáëåé\n");
+		output_manager->printMessage("Ã‚ Ã¤Ã Ã­Ã­Ã®Ã© Ã®Ã¡Ã«Ã Ã±Ã²Ã¨ Ã­Ã¥Ã² ÃªÃ®Ã°Ã Ã¡Ã«Ã¥Ã©\n");
 	}
 	return false;
 }
