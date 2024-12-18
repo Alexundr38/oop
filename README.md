@@ -1,4 +1,4 @@
-# oop_lb2
+# oop
 
 Для запуска выполнить:
 mkdir build
