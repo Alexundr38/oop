@@ -11,7 +11,8 @@
 #include "CreateGameState.h"
 #include "BotMoveState.h"
 #include "BotWinState.h"
-#include "PlayerMoveState.h"
+#include "PlayerAttackState.h"
+#include "PlayerUseAbilityState.h"
 #include "PlayerWinState.h"
 #include "LoadState.h"
 #include "SaveState.h"
@@ -21,25 +22,44 @@ class Game {
 	Player* player;
 	Player* bot;
 	InputManager* input_manager;
-	OutputManager* output_manager;
-	/*int round_number = 1;*/
-	GameState* current_state;
+
+	Output out{ std::cout };
+	OutputManager<Output>* output_manager;
+	GameState* next_state;
 
 	void stringToState(std::string str);
 
 public:
 
-	Game();
+	Game(InputManager* input_manager);
 
 	void doState();
 
+	void createGame();
+
+	void quit();
+	
+	void saveGame();
+
+	void loadGame();
+
+	void attack();
+
+	void useAbility();
+
 	Player* getPlayer(bool is_player = true);
 
-	void changeState(GameState* new_state, bool is_hide = false); 
+	void changeState(GameState* new_state); 
 
 	json to_json() const;
 
 	void from_json(const json& j);
+
+	void changeNextState(GameState* new_state);
+
+	GameState* getNextState() const;
+
+	OutputManager<Output>* getOutputManager();
 
 	friend std::ofstream& operator<<(std::ofstream& out, Game* game);
 

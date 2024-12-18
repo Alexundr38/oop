@@ -4,7 +4,7 @@
 Bombing::Bombing(Player* player) : player(player) {};
 
 std::string Bombing::printInfo() {
-	return "Áîìáàðäèðîâêà";
+	return "ÃÃ®Ã¬Ã¡Ã Ã°Ã¤Ã¨Ã°Ã®Ã¢ÃªÃ ";
 }
 
 bool Bombing::useAbility() {
@@ -15,7 +15,7 @@ bool Bombing::useAbility() {
 	bool flag_atack = true;
 	ShipManager* manager = player->getShipManager();
 	PlayingField* field = player->getField();
-	OutputManager* output_manager = player->getOutputManager();
+	OutputManager<Output>* output_manager = player->getOutputManager();
 	while (flag == true) {
 		index = rand() % manager->getNumber();
 		if (manager->checkDestroyed(index) == false) {
@@ -37,7 +37,7 @@ bool Bombing::useAbility() {
 									return true;
 								}
 								if (manager->checkDestroyed(index) == true) {
-									output_manager->printMessage("Êîðàáëü óíè÷òîæåí!\n");
+									output_manager->printMessage("ÃŠÃ®Ã°Ã Ã¡Ã«Ã¼ Ã³Ã­Ã¨Ã·Ã²Ã®Ã¦Ã¥Ã­!\n");
 								}
 								flag_atack = false;
 								deck_flag = false;	

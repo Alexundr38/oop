@@ -1,9 +1,6 @@
 #include "Player.h"
 
-//Player::Player(InputManager* input_manager, OutputManager* output_manager) :
-//	input_manager(input_manager), output_manager(output_manager) {};
-
-Player::Player(bool is_player, InputManager* input_manager, OutputManager* output_manager) :
+Player::Player(bool is_player, InputManager* input_manager, OutputManager<Output>* output_manager) :
 	is_player(is_player), input_manager(input_manager), output_manager(output_manager) {};
 
 json Player::to_json() const {
@@ -93,7 +90,7 @@ InputManager* Player::getInputManager() {
 	return this->input_manager;
 }
 
-OutputManager* Player::getOutputManager() {
+OutputManager<Output>* Player::getOutputManager() {
 	return this->output_manager;
 }
 
@@ -101,37 +98,44 @@ void Player::setDouble() {
 	this->is_double = true;
 }
 
-std::pair<bool,bool> Player::playerMove(bool first_action) {
+bool Player::playerMove(bool is_use) {
 	output_manager->printMessage("------------------------\n");
 	if (is_player == true) {
-		output_manager->printMessage("Ваш ход!\n");
+		output_manager->printMessage("Г‚Г Гё ГµГ®Г¤!\n");
 	}
 	else {
-		output_manager->printMessage("Ход противника!\n");
+		output_manager->printMessage("Г•Г®Г¤ ГЇГ°Г®ГІГЁГўГ­ГЁГЄГ !\n");
 	}
-	int player_answer = 0;
-	if (first_action == true && is_player == true) {
-		output_manager->printMessage(" - Если хотите применить способность введите [1], в противном случае введите [0].\n");
-		player_answer = input_manager->inputValue();
+	if (is_use) {
 		try {
 			int number_abilitys = ability_manager->getNumber();
-			if (player_answer == 1 && number_abilitys == 0) {
+			if (number_abilitys == 0) {
 				throw UseAbilityException();
+			}
+			else {
+				std::ostringstream oss;
+				oss << "ГЂГЄГІГЁГўГЁГ°ГіГҐГІГ±Гї Г±ГЇГ®Г±Г®ГЎГ­Г®Г±ГІГј " << ability_manager->infoAbility() << '\n';
+				output_manager->printMessage(oss.str());
+				ability_manager->useAbility();
+				bool check_win = ship_manager->checkWin();
+				if (check_win == true) {
+					return true;
+				}
+				return false;
 			}
 		}
 		catch (UseAbilityException& e) {
 			std::ostringstream oss;
 			oss << e.what() << '\n';
 			output_manager->printMessage(oss.str());
-			player_answer = 0;
 		}
 	}
-	if (player_answer == 0) {
+	else {
 		std::pair <int, int> sizes;
 		int y, x;
 		sizes = field->getSize();
 		if (is_player == true) {
-			output_manager->printMessage(" - Укажите точку удара в формате [x y]\n");
+			output_manager->printMessage(" - Г“ГЄГ Г¦ГЁГІГҐ ГІГ®Г·ГЄГі ГіГ¤Г Г°Г  Гў ГґГ®Г°Г¬Г ГІГҐ [x y]\n");
 			std::pair <int, int> coordinates = input_manager->inputXY(sizes.first, sizes.second);
 			x = --coordinates.first;
 			y = --coordinates.second;
@@ -158,34 +162,22 @@ std::pair<bool,bool> Player::playerMove(bool first_action) {
 			}
 			bool check_win = ship_manager->checkWin();
 			if (check_win == true) {
-				return std::make_pair(false, true);
+				return true;
 			}
 		}
 		else {
-			output_manager->printMessage("Промах!\n");
+			output_manager->printMessage("ГЏГ°Г®Г¬Г Гµ!\n");
 		}
 		is_double = false;
 	}
-	else {
-		std::ostringstream oss;
-		oss << "Активируется способность " << ability_manager->infoAbility() << '\n';
-		output_manager->printMessage(oss.str());
-		ability_manager->useAbility();
-		bool check_win = ship_manager->checkWin();
-		if (check_win == true) {
-			return std::make_pair(true, true);
-		}
-		return std::make_pair(true, false);
-		//playerMove(flag, false);
-	}
-	return std::make_pair(false, false);
+	return false;
 }
 
 bool Player::hit(int x, int y, int index, bool is_hide) {
 	int index_deck = field->getDeckIndex(x, y);
 	bool degree = ship_manager->checkDegree(index, index_deck);
 	if (degree == true) {
-		if (is_hide == false) { output_manager->printMessage("Попадание в уничтоженный сегмент корабля!\n"); }
+		if (is_hide == false) { output_manager->printMessage("ГЏГ®ГЇГ Г¤Г Г­ГЁГҐ Гў ГіГ­ГЁГ·ГІГ®Г¦ГҐГ­Г­Г»Г© Г±ГҐГЈГ¬ГҐГ­ГІ ГЄГ®Г°Г ГЎГ«Гї!\n"); }
 		return false;
 	}
 	else {
@@ -194,18 +186,18 @@ bool Player::hit(int x, int y, int index, bool is_hide) {
 		bool check = ship_manager->checkDestroyed(index);
 		bool degree = ship_manager->checkDegree(index, index_deck);
 
-		if (is_hide == false) { output_manager->printMessage("Попадание!\n"); }
+		if (is_hide == false) { output_manager->printMessage("ГЏГ®ГЇГ Г¤Г Г­ГЁГҐ!\n"); }
 		if (degree == false) {
-			if (is_hide == false) { output_manager->printMessage("Сектор поврежден!\n"); }
+			if (is_hide == false) { output_manager->printMessage("Г‘ГҐГЄГІГ®Г° ГЇГ®ГўГ°ГҐГ¦Г¤ГҐГ­!\n"); }
 		}
 		else {
-			if (is_hide == false) { output_manager->printMessage("Сектор уничтожен!\n"); };
+			if (is_hide == false) { output_manager->printMessage("Г‘ГҐГЄГІГ®Г° ГіГ­ГЁГ·ГІГ®Г¦ГҐГ­!\n"); };
 			field->killDeck(x, y);
 		}
 
 		if (check == true) {
 			if (is_player == true) { ability_manager->createAbility(); }
-			if (is_hide == false) { output_manager->printMessage("Корабль уничтожен!\n"); }
+			if (is_hide == false) { output_manager->printMessage("ГЉГ®Г°Г ГЎГ«Гј ГіГ­ГЁГ·ГІГ®Г¦ГҐГ­!\n"); }
 		}
 	}
 	return true;

@@ -5,7 +5,7 @@
 
 class CreatePlayer {
 	InputManager* input_manager;
-	OutputManager* output_manager;
+	OutputManager<Output>* output_manager;
 	Player* player;
 	bool is_player;
 	int width;

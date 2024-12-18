@@ -1,17 +1,49 @@
 #include "Game.h"
 
 
-Game::Game() {
-	input_manager = new InputManager(std::cin);
-	output_manager = new OutputManager(std::cout);
+Game::Game(InputManager* input_manager): input_manager(input_manager) {
+	output_manager = new OutputManager<Output>(out);
 	player = new Player(true, input_manager, output_manager);
 	bot = new Player(false, input_manager, output_manager);
-	current_state = new StartState(this);
-	doState();
+	next_state = new StartState(this);
 }
 
 void Game::doState() {
+	next_state->doState();
+}
+
+void Game::createGame() {
+	delete next_state;
+	next_state = new CreateGameState(this);
+	doState();
+}
+
+void Game::quit() {
+	exit(0);
+}
+
+void Game::saveGame() {
+	GameState* current_state = new SaveState(this);
 	current_state->doState();
+	delete current_state;
+}
+
+void Game::loadGame() {
+	GameState* current_state = new LoadState(this);
+	current_state->doState();
+	delete current_state;
+}
+
+void Game::attack() {
+	delete next_state;
+	next_state = new PlayerAttackState(this);
+	doState();
+}
+
+void Game::useAbility() {
+	delete next_state;
+	next_state = new PlayerUseAbilityState(this);
+	doState();
 }
 
 Player* Game::getPlayer(bool is_player) {
@@ -23,55 +55,46 @@ Player* Game::getPlayer(bool is_player) {
 	}
 }
 
-void Game::changeState(GameState* new_state, bool is_hide) {
-	delete current_state;
-	current_state = new_state;
-	if (!is_hide) {
-		output_manager->printMessage(" - Если хотите сохранить текущую игру, нажмите [s]\n - Если хотите загрузить последнюю сохраненнную игру, нажмите [l]\n - Если хотите начать новую игру, нажмите [g]\n - Если хотите выйти из игры, нажмите [q]\n - Иначе нажмите [n]\n");
-		Answer answer = input_manager->inputSaveAns();
-		if (answer.is_save) {
-			GameState* save = new SaveState(this);
-			save->doState();
-			delete save;
-			//сохранение
-		}
-		if (answer.is_load) {
-			GameState* load = new LoadState(this);
-			load->doState();
-			delete load;
-			//загрузка
-		}
-		if (answer.is_new) {
-			changeState(new CreateGameState(this), true);
-		}
-		if (answer.is_quit) {
-			exit(0);
-		}
-	}
-	doState();
-	//вопрос про загрузку
+
+void Game::changeState(GameState* new_state) {
+	new_state->doState();
 }
 
 json Game::to_json() const {
 	json j;
 	j["player"] = player->to_json();
 	j["bot"] = bot->to_json();
-	j["current_state"] = std::string(typeid(*current_state).name());
+	j["next_state"] = std::string(typeid(*next_state).name());
 	return j;
 }
 
 void Game::from_json(const json& j) {
 	player->from_json(j.at("player"));
 	bot->from_json(j.at("bot"));
-	stringToState(j.at("current_state"));
+
+	stringToState(j.at("next_state"));
+}
+
+void Game::changeNextState(GameState* new_state) {
+	delete next_state;
+	next_state = new_state;
 }
 
 void Game::stringToState(std::string str) {
-	if (str == "class CreateGameState") changeState(new CreateGameState(this));
-	if (str == "class BotMoveState") changeState(new BotMoveState(this));
-	if (str == "class BotWinState") changeState(new BotWinState(this));
-	if (str == "class PlayerMoveState") changeState(new PlayerMoveState(this));
-	if (str == "class PlayerWinState") changeState(new PlayerWinState(this));
+	if (str == "class CreateGameState") changeNextState(new CreateGameState(this));
+	if (str == "class BotMoveState") changeNextState(new BotMoveState(this));
+	if (str == "class BotWinState") changeNextState(new BotWinState(this));
+	if (str == "class PlayerUseAbilityState") changeNextState(new PlayerUseAbilityState(this));
+	if (str == "class PlayerAttackState") changeNextState(new PlayerAttackState(this));
+	if (str == "class PlayerWinState") changeNextState(new PlayerWinState(this));
+}
+
+GameState* Game::getNextState() const{
+	return next_state;
+}
+
+OutputManager<Output>* Game::getOutputManager() {
+	return output_manager;
 }
 
 std::ofstream& operator<<(std::ofstream& out, Game* game) {
@@ -91,7 +114,6 @@ std::ifstream& operator>>(std::ifstream& in, Game* game) {
 Game::~Game() {
 	delete player;
 	delete bot;
-	delete current_state;
-	delete input_manager;
+	delete next_state;
 	delete output_manager;
 }

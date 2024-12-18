@@ -80,48 +80,49 @@ std::vector<int> InputManager::inputXYOrient(int width, int height) {
 	return res;
 }
 
-Answer InputManager::inputSaveAns() {
-	char ans;
-	Answer answer;
-	std::string input;
-	while (true) {
-		std::getline(is, input);
-		std::stringstream ss(input);
-		try {
-			if (!(ss >> ans) || input.size() != 1 || (ans != 's' && ans != 'l' && ans != 'g' && ans != 'q' && ans != 'n')) {
-				throw InputSaveAnsException();
-			}
-			break;
-		}
-		catch (InputSaveAnsException& e){
-			std::cout << e.what() << '\n';
-		}
-	}
-	if (ans == 's') answer.is_save = true;
-	if (ans == 'l') answer.is_load = true;
-	if (ans == 'g') answer.is_new = true;
-	if (ans == 'q') answer.is_quit = true;
-	return answer;
+Commands InputManager::stringToCommand(std::string str) {
+	if (str == "c") return CREATE_GAME;
+	if (str == "s") return SAVE_GAME;
+	if (str == "l") return LOAD_GAME;
+	if (str == "n") return NEXT_STATE;
+	if (str == "q") return QUIT;
+	if (str == "a") return ATTACK;
+	if (str == "u") return USE_ABILITY;
+	if (str == "h") return HELP;
 }
 
-bool InputManager::inputLoadAns() {
-	char ans;
+Commands InputManager::inputCommand() {
 	std::string input;
+	json data;
+	std::ifstream input_file("commands.json");
+	bool is_open = true;
+	if (input_file) {
+		input_file >> data;
+	}
+	else {
+		is_open = false;
+	}
+	input_file.close();	
 	while (true) {
 		std::getline(is, input);
-		std::stringstream ss(input);
 		try {
-			if (!(ss >> ans) || input.size() != 1 || (ans != 'y' && ans != 'n')) {
-				throw InputLoadException();
+			if (is_open) {
+				if (data.contains(input)) {
+					return stringToCommand(input);
+				}
 			}
-			break;
+			else {
+				if (default_commands.count(input) > 0) {
+					return stringToCommand(input);
+				}
+			}
+			throw UnknownCommandException();
 		}
-		catch (InputLoadException& e) {
-			std::cout << e.what() << '\n';
+		catch (UnknownCommandException& e) {
+			std::ostringstream oss;
+			oss << e.what() << '\n';
+			Output out{ std::cout };
+			out.printMessage(oss.str());
 		}
 	}
-	if (ans == 'y') {
-		return true;
-	}
-	return false;
 }

@@ -3,7 +3,7 @@
 
 #include "GameState.h"
 #include "CreatePlayer.h"
-#include "PlayerMoveState.h"
+#include "PlayerUseAbilityState.h"
 
 class PlayerWinState : public GameState {
 	Game* game;

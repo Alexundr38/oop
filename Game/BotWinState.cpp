@@ -2,9 +2,9 @@
 #include "Game.h"
 
 void BotWinState::doState() {
-	game->getPlayer()->getOutputManager()->printMessage("Âû ïðîèãðàëè..\nÍîâàÿ èãðà\n");
+	game->getPlayer()->getOutputManager()->printMessage("Ã‚Ã» Ã¯Ã°Ã®Ã¨Ã£Ã°Ã Ã«Ã¨..\nÃÃ®Ã¢Ã Ã¿ Ã¨Ã£Ã°Ã \n");
 	
-	game->changeState(new StartState(game), true);
+	game->changeNextState(new CreateGameState(game));
 	//switch StartState
 }
 

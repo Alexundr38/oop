@@ -44,21 +44,33 @@ public:
 	RandomSetShipException() = default;
 };
 
-class InputLoadException {
-public:
-	InputLoadException() = default;
-	std::string what();
-};
-
-class InputSaveAnsException {
-public:
-	InputSaveAnsException() = default;
-	std::string what();
-};
-
 class OpenFileException {
 public:
 	OpenFileException() = default;
+	std::string what();
+};
+
+class UnknownCommandException {
+public:
+	UnknownCommandException() = default;
+	std::string what();
+};
+
+class AttackCommandException {
+public:
+	AttackCommandException() = default;
+	std::string what();
+};
+
+class UseAbilityCommandException {
+public:
+	UseAbilityCommandException() = default;
+	std::string what();
+};
+
+class SaveCommandException {
+public:
+	SaveCommandException() = default;
 	std::string what();
 };
 #endif

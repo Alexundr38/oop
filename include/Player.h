@@ -16,14 +16,14 @@ private:
 	ShipManager* ship_manager = nullptr;
 	AbilityManager* ability_manager = nullptr;
 	InputManager* input_manager;
-	OutputManager* output_manager;
+	OutputManager<Output>* output_manager;
 	bool is_player;
 	bool is_double = false;
 
 public:
 	//Player(InputManager* input_manager, OutputManager* output_manager);
 
-	Player(bool is_player, InputManager* input_manager, OutputManager* output_manager);
+	Player(bool is_player, InputManager* input_manager, OutputManager<Output>* output_manager);
 
 	json to_json() const;
 
@@ -43,11 +43,11 @@ public:
 
 	InputManager* getInputManager();
 
-	OutputManager* getOutputManager();
+	OutputManager<Output>* getOutputManager();
 
 	void setDouble();
 
-	std::pair<bool, bool> playerMove(bool first_action = true);
+	bool playerMove(bool is_use = false);
 
 	bool hit(int x, int y, int index, bool is_hide = false);
 

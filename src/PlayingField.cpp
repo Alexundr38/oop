@@ -56,11 +56,11 @@ PlayingField::PlayingField(int width, int height) {
 
 PlayingField::PlayingField() = default;
 
-PlayingField::PlayingField(const PlayingField& other) : //êîïèðîâàíèå
+PlayingField::PlayingField(const PlayingField& other) : //ÃªÃ®Ã¯Ã¨Ã°Ã®Ã¢Ã Ã­Ã¨Ã¥
 	field_value(other.field_value), field_view(other.field_view),
 	height(other.height), width(other.width) {}
 
-PlayingField::PlayingField(PlayingField&& other) noexcept : //ïåðåìåùåíèå	
+PlayingField::PlayingField(PlayingField&& other) noexcept : //Ã¯Ã¥Ã°Ã¥Ã¬Ã¥Ã¹Ã¥Ã­Ã¨Ã¥	
 	field_value(std::move(other.field_value)), field_view(std::move(other.field_view)),
 	height(other.height), width(other.width) {
 	other.height = 0;
@@ -147,6 +147,7 @@ void PlayingField::from_json(const json& j) {
 	j.at("width").get_to(width);
 
 	if (field_value.size() > 0) {
+		createField();
 		for (int i = 0; i < height; i++) {
 			field_value[i].clear();
 			field_view.clear();
