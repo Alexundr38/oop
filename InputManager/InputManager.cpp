@@ -94,14 +94,27 @@ Commands InputManager::stringToCommand(std::string str) {
 Commands InputManager::inputCommand() {
 	std::string input;
 	json data;
-	std::ifstream input_file("commands.json");;
-	input_file >> data;
+	std::ifstream input_file("commands.json");
+	bool is_open = true;
+	if (input_file) {
+		input_file >> data;
+	}
+	else {
+		is_open = false;
+	}
 	input_file.close();	
 	while (true) {
 		std::getline(is, input);
 		try {
-			if (data.contains(input)) {
-				return stringToCommand(input);
+			if (is_open) {
+				if (data.contains(input)) {
+					return stringToCommand(input);
+				}
+			}
+			else {
+				if (default_commands.count(input) > 0) {
+					return stringToCommand(input);
+				}
 			}
 			throw UnknownCommandException();
 		}

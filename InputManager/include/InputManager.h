@@ -1,5 +1,5 @@
-#ifndef INPUT_H
-#define INPUT_H
+#ifndef INPUTMANAGER_H
+#define INPUTMANAGER_H
 
 #include <fstream>
 #include <iostream>
@@ -25,6 +25,17 @@ enum Commands {
 class InputManager {
 private:
 	std::istream& is;
+
+	std::map<std::string, std::string> default_commands = {
+		{"c", "create_game"},
+		{"s", "save_game"},
+		{"l", "load_game"},
+		{"n", "next_state"},
+		{"q", "exit"},
+		{"a", "attack"},
+		{"u", "use_abiility"},
+		{"h", "help"}
+	};
 
 	Commands stringToCommand(std::string str);
 public:

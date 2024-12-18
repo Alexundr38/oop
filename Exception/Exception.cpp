@@ -30,16 +30,6 @@ std::string UseAbilityException::what() {
 	return msg;
 }
 
-std::string InputSaveAnsException::what() {
-	std::string msg = "Ошибка: введены некорректные данные. Введите [s], чтобы сохранить игру, [l], чтобы загрузить игру, [g], чтобы начать новую игру, [q], чтобы выйти из игры, [n], чтобы продолжить";
-	return msg;
-}
-
-std::string InputLoadException::what() {
-	std::string msg = "Ошибка: введены некорректные данные. Введите [y], чтобы загрузить игру, [n], в противном случае";
-	return msg;
-}
-
 std::string OpenFileException::what() {
 	std::string msg = "Не найдено сохранений";
 	return msg;

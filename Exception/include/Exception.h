@@ -44,18 +44,6 @@ public:
 	RandomSetShipException() = default;
 };
 
-class InputLoadException {
-public:
-	InputLoadException() = default;
-	std::string what();
-};
-
-class InputSaveAnsException {
-public:
-	InputSaveAnsException() = default;
-	std::string what();
-};
-
 class OpenFileException {
 public:
 	OpenFileException() = default;
